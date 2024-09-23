@@ -1,0 +1,14 @@
+
+Hope you enjoy your new logo, here are the people that
+made your beautiful logo happen :)
+font name: Lemonada-Regular
+font link: https://fonts.google.com/specimen/Lemonada
+font author: Eduardo Tunni
+font author site: http://www.tipo.net.ar/
+
+
+icon designer: useiconic.com
+icon designer link: /useiconic.com
+        
+{"bg":"#C8A987","icon":"#D8D961","font":"#ffffff","slogan":"#ffffff"}
+      
