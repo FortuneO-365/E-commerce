@@ -1,0 +1,135 @@
+:root{
+    --primary-color: #c8a987;
+    --sec-color: #d8d961;
+    --dark-primary-color: #947c63;
+    --light-primary-color: #e5c39e;
+    --black: #2e3133;
+    --error-color: #f72f2f;
+    --transparent-primary-color: #c8a9871f;
+}
+
+.login-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70dvh;
+    width: 100dvw;
+}
+
+.form-container{
+    background-color: var(--transparent-primary-color);
+    backdrop-filter: blur(8px);
+    box-shadow: 0px 0px 3px rgba(200, 169, 165, 0.89);
+    color: var(--primary-color);
+    height: 80%;
+    width: 80%;
+    max-width: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.form-container form{
+    width: 100% ;
+}
+
+.login-header{
+    padding: 20px;
+    text-align: center;
+}
+
+.login-email, .login-password{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    position: relative;
+}
+
+.login-email label, .login-password label{
+    position: absolute;
+    color: var(--primary-color);
+    top: 50%;
+    transform: translateY(-50%);
+    left: 12%;
+}
+
+.login-email.active label, .login-password.active label{
+    top: 10%;
+    left: 10%;
+    font-size: 15px;
+}
+
+.login-email input, .login-password input{
+    width: 80%;
+    padding: 7px 10px;
+    border: 1pt solid var(--dark-primary-color);
+    border-radius: 5px;
+    color: var(--primary-color);
+    outline: none;
+}
+
+.login-error-message{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--error-color);
+    font-style: oblique;
+    font-weight: 700;
+}
+
+.login-extras{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 25px;
+    margin: 20px 0;
+}
+
+.login-button{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.login-button button{
+    margin-right: 10%;
+    padding: 8px 20px;
+    border-radius: 5px;
+    border: 1pt solid var(--dark-primary-color);
+    background-color: var(--light-primary-color);
+    color: white;
+}
+
+.login-button button:active{
+    background-color: var(--primary-color);
+}
+
+.loading-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+
+.loader{
+    height: 25px;
+    width: 25px;
+    border: 3px solid var(--primary-color);
+    border-top: none;
+    border-left: none;
+    border-radius: 50%;
+    animation: rotate .8s infinite;
+}
+
+@keyframes rotate {
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}

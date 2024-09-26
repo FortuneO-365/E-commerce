@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react'
 import Nav from './pages/nav/Nav'
+import "./App.css"
+import SignIn from './pages/SignIn/SignIn'
 
 function App() {
   useEffect(()=>{
@@ -9,7 +11,11 @@ function App() {
     .catch(err => console.log(err))
   },[])
   return (
+    <>
     <Nav/>
+    
+    <SignIn/>
+    </>
   )
 }
 
