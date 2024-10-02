@@ -1,12 +1,33 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {Menu, List, ShoppingCart, Search, UserCircle2} from 'lucide-react'
 import logo from "../../Images/Shopify-logo/cover.png"
+import Dashboard from '../dashboard/dashboard';
+import { Link , Outlet } from 'react-router-dom';
 import "./nav.css"
+import AcctDropdown from '../../components/AcctDropdown';
 
 function Nav() {
     
     const [isSearching, setIsSearching] = useState(false);
+    const [dashboard , setDashboard] = useState(false)
+    const [account , showAccount] = useState(false)
     const [list, setList] = useState(false);
+
+    const buttonRef = useRef(null);
+    const secButtonRef = useRef(null);
+
+    const addDashboard = () => {
+        setDashboard(true);
+    }
+
+    const removeDashboard = (e) => {
+        e.target == buttonRef.current ? 
+            console.log("true")
+        :
+            console.log("false")
+            console.log(e.target)
+        // setDashboard(false);
+    }
 
     const toggleSearching = ()=>{
         setIsSearching(!isSearching);
@@ -16,21 +37,55 @@ function Nav() {
         setList(!list);
     }
 
+    const addAccount = () => {
+        showAccount(true)
+    }
+
+    const removeAccount = () => {
+        showAccount(false)
+    }
+
+    // useEffect(() => {
+
+    // }, [])
+
     return (
         <>
-            <div className="top-nav">
+            <div className="top-nav" onClick={removeDashboard}>
                 <div className="left-part">
-                    <div className="menu-icon mobile-only">
-                        <Menu/>
+                    <div ref={buttonRef} className="menu-icon mobile-only"  onClick={addDashboard}>
+                        <Menu ref={secButtonRef}/>
                     </div>
+                    {
+                        dashboard ?
+                            <Dashboard />
+                        :
+                            <></>
+                    }
                     <div className="hide-mobile signing">
                         <h4>Sign Up</h4>
                     </div>
                     <div className="hide-mobile signing">
-                        <h4>Sign In</h4>
+                        <Link to="/login">
+                            <h4>Sign In</h4>
+                        </Link>
                     </div>
-                    <div className="mobile-only account">
-                        <UserCircle2/>
+                    <div 
+                     className="mobile-only account" 
+                     onMouseOver={addAccount} 
+                     onMouseOut={removeAccount}
+                    >
+                            <UserCircle2/>
+                        {
+                            account ?
+                                <AcctDropdown 
+                                 class="active"
+                                 clickAction = {removeAccount}
+                                />
+                            :
+                                <>
+                                </>
+                        }
                     </div>
                 </div>
                 <div className="right-part">
@@ -51,7 +106,7 @@ function Nav() {
             {
                 isSearching ?
 
-                    <div className="mid-nav">
+                    <div className="mid-nav" onClick={removeDashboard}>
                         <div className="searchbar-container">
                             <input type="search" name="" id="" placeholder='Search Shopify...' />
                             <button>Search</button>
@@ -62,10 +117,12 @@ function Nav() {
                     <></>
             }
 
-            <div className='extended-bottom-nav'>
+            <div className='extended-bottom-nav' onClick={removeDashboard}>
                 <div className="bottom-nav">
                     <div className="logo">
-                        <img src={logo} alt="company logo" />
+                        <Link to="/">
+                            <img src={logo} alt="company logo" />
+                        </Link>
                     </div>
                     <div className="hide-mobile product">
                         <h2>
@@ -128,9 +185,9 @@ function Nav() {
                     :
                         <></>
                 }
-
+                
             </div>
-        
+        <Outlet />
         </>
     )
 }

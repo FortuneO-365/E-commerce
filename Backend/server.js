@@ -39,10 +39,16 @@ app.post("/customers", (req, res) => {
         if(err) return res.json("Login Failed");
         if(data.length > 0){
             return res.json(data)
-            // return res.json(data)
         }else{
             return res.json("Username or password is incorrect")
-            // return res.json(data)
         }
+    })
+})
+
+app.get("/products",(req,res)=>{
+    const sql = "SELECT * FROM products";
+    db.query(sql, (err ,data)=>{
+        if(err) return res.json(err);
+        return res.status(200).json(data)
     })
 })

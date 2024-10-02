@@ -1,6 +1,8 @@
  import React, { useEffect, useRef, useState } from 'react'
  import axios from "axios"
  import "./signin.css";
+import { useNavigate } from 'react-router-dom';
+import Main from '../main/Main';
  
  function SignIn() {
 
@@ -12,6 +14,8 @@
 
     const inputRef = useRef(null);
     const inputRef2 = useRef(null);
+
+    const navigate = useNavigate();
     
     const toggleShowError = () =>{
         setShowError(true);
@@ -32,7 +36,11 @@
         console.log(password);
         axios.post("http://localhost:9000/customers", {email,password})
         .then(res => {
-            console.log(res)
+            res.data == "Username or password is incorrect" ? 
+                setErrorMsg("Username or password is incorrect")
+            :
+                navigate('/');
+                console.log(res.data)
         })
         .catch(err => console.log(err));
     }
