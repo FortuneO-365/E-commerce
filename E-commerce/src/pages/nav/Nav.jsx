@@ -1,32 +1,35 @@
 import React, { useEffect, useRef, useState } from 'react'
 import {Menu, List, ShoppingCart, Search, UserCircle2} from 'lucide-react'
-import logo from "../../Images/Shopify-logo/cover.png"
-import Dashboard from '../dashboard/dashboard';
-import { Link , Outlet } from 'react-router-dom';
+import logo from "/Images/Shopify-logo/cover.png"
+import Sidebar from '../dashboard/Sidebar';
+import { Link , Outlet, useLocation } from 'react-router-dom';
 import "./nav.css"
 import AcctDropdown from '../../components/AcctDropdown';
+import axios from 'axios';
+import Languages from '../../components/languages';
 
-function Nav() {
+function Nav(props) {
+    const location = useLocation();
+
+    const [user , setUser] = useState(location.state?.user);
+    const [isUser, setIsUser] = useState(false);
     
     const [isSearching, setIsSearching] = useState(false);
     const [dashboard , setDashboard] = useState(false)
     const [account , showAccount] = useState(false)
     const [list, setList] = useState(false);
+    const [currency, showCurrency] = useState(false)
 
     const buttonRef = useRef(null);
     const secButtonRef = useRef(null);
+
 
     const addDashboard = () => {
         setDashboard(true);
     }
 
     const removeDashboard = (e) => {
-        e.target == buttonRef.current ? 
-            console.log("true")
-        :
-            console.log("false")
-            console.log(e.target)
-        // setDashboard(false);
+        setDashboard(false);
     }
 
     const toggleSearching = ()=>{
@@ -45,20 +48,31 @@ function Nav() {
         showAccount(false)
     }
 
-    // useEffect(() => {
-
-    // }, [])
+    useEffect(()=>{
+        axios.get("http://localhost:9000/api/auth/status" ,{withCredentials : true}) 
+        .then(res => {
+            setUser(res.data)
+            setIsUser(true)
+            // console.log(user)
+        })
+        .catch(err => {
+            setIsUser(false)
+        })
+    }, [user]);
 
     return (
         <>
-            <div className="top-nav" onClick={removeDashboard}>
+            <div className="top-nav">
                 <div className="left-part">
                     <div ref={buttonRef} className="menu-icon mobile-only"  onClick={addDashboard}>
                         <Menu ref={secButtonRef}/>
                     </div>
                     {
                         dashboard ?
-                            <Dashboard />
+                            <Sidebar 
+                             cancel = {removeDashboard}
+                             username = {isUser ? user.FirstName : "User"}
+                            />
                         :
                             <></>
                     }
@@ -81,6 +95,7 @@ function Nav() {
                                 <AcctDropdown 
                                  class="active"
                                  clickAction = {removeAccount}
+                                 button = {isUser ? "Log Out" : "Sign In"}
                                 />
                             :
                                 <>
@@ -93,7 +108,15 @@ function Nav() {
                         <ShoppingCart/>
                     </div>
                     <div className="currency">
+                        <div className='currency-image'>
+                            <img src="/Images/flags/us-flag.gif" alt="country-flag" />
+                        </div>
                         <h4>Usd</h4> 
+                        {
+                            showCurrency 
+                            ? <></>
+                            : <Languages/>
+                        }
                     </div>
                     <div 
                      className="search-icon"

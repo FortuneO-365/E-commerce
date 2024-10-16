@@ -5,14 +5,10 @@ import SignIn from './pages/SignIn/SignIn'
 import {BrowserRouter, Route, Routes} from "react-router-dom"
 import Main from './pages/main/Main'
 import AcctDropdown from './components/AcctDropdown'
+import Signup from './pages/Signup/Signup'
 
 function App() {
-  useEffect(()=>{
-    fetch("http://localhost:9000/customers")
-    .then(res => res.json())
-    .then(data => console.log(data))
-    .catch(err => console.log(err))
-  },[])
+
   return (
     <>
       
@@ -21,6 +17,7 @@ function App() {
           <Route path='/' element={<Nav/>} >
             <Route index element={<Main/>} />
             <Route path='/login' element={<SignIn/>} />
+            <Route path='/signup' element={<Signup/>} />
           </Route>
 
         </Routes>

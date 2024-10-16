@@ -89,3 +89,50 @@
     width: 25px;
     height: 25px;
 }
+
+/******************************
+        LANGUAGES
+******************************/
+
+.language-container{
+    position: absolute;
+    z-index: 5;
+    background-color: white;
+    color: var(--black);
+    top: 25px;
+    right: 3%;
+    border-radius: 5px;
+    border: 1pt solid var(--black);
+}
+
+.language-container ul{
+    padding: 10px;
+}
+
+.language-container ul li{
+    padding: 5px;
+    margin-bottom: 8px;
+}
+
+.language-container ul li:hover{
+    background-color: var(--light-primary-color);
+    border-radius: 5px;
+}
+
+.language-box{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+    padding-inline: 10px;
+}
+
+.language-box img{
+    height: 12px;
+    width: 18px;
+    object-fit: cover;
+}
+
+.language-box span{
+    display: block;
+}

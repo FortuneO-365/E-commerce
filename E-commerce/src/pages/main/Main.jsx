@@ -1,19 +1,14 @@
 import React ,  {useEffect, useState} from 'react'
 import Product from './product'
+import axios from 'axios';
 function Main() {
     const [products, setProducts] = useState([]);
+
     useEffect(()=>{
-        fetch("http://localhost:9000/products")
-        .then(res => res.json())
-        .then(data => setProducts(data))
+        axios.get("http://localhost:9000/products" ,{withCredentials : true}) 
+        .then(res => setProducts(res.data))
         .catch(err => console.log(err))
-
-        console.log("Fetching products...");
     }, []);
-
-    useEffect(() => {
-      console.log(products);
-    }, [products]);
     return (
         <>
             <div className='flex-container'>

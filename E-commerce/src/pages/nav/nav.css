@@ -88,6 +88,26 @@
     border-radius: 5px;
 }
 
+.currency{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.currency-image{
+    aspect-ratio: 3/2;
+    height: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.currency-image img{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
 
 .bottom-nav{
     background-color: var(--primary-color);
@@ -97,7 +117,8 @@
     justify-content: space-between;
     height: 70px;
     padding: 0;
-    position: relative;
+    position: sticky;
+    top: 0;
 }
 
 .logo{

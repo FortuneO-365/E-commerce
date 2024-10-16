@@ -1,14 +1,14 @@
  import React, { useEffect, useRef, useState } from 'react'
  import axios from "axios"
  import "./signin.css";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Main from '../main/Main';
  
  function SignIn() {
 
     const [showError, setShowError] = useState(true);
     const [loading , showLoading] = useState(false);
-    const [email , setEmail ] = useState("");
+    const [email , setEmail] = useState("");
     const [password , setPassword] = useState("");
     const [errorMsg , setErrorMsg] = useState("");
 
@@ -26,23 +26,31 @@ import Main from '../main/Main';
         setTimeout(() => {
             showLoading(false);
         }, 3000)
-        toggleShowError();
     }
-
+    
     const handleSubmit = (event) => {
         event.preventDefault();
         showAnimation();
-        console.log(email);
-        console.log(password);
-        axios.post("http://localhost:9000/customers", {email,password})
+        axios.post("http://localhost:9000/api/auth", { email, password }, {withCredentials: true})
         .then(res => {
-            res.data == "Username or password is incorrect" ? 
-                setErrorMsg("Username or password is incorrect")
-            :
-                navigate('/');
-                console.log(res.data)
+            if (res.data === "Username or password is incorrect") {
+                setErrorMsg("Username or password is incorrect");
+                toggleShowError();
+            } else {
+                console.log("Login Successful");
+                
+                axios.get("http://localhost:9000/api/auth/status",{withCredentials: true})
+                .then(res => 
+                    {
+                        navigate('/' , {state : {user : res.data}});
+                    })
+                .catch(err => console.log(err));        
+            }
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            setErrorMsg("An error occurred during login");
+        });
     }
 
     return (
@@ -90,7 +98,7 @@ import Main from '../main/Main';
                                 Forgot Password?
                             </p>
                             <p>
-                                New Here? Sign-Up
+                                New Here? <Link to="/Signup">Sign-Up</Link>
                             </p>
                         </div>
                         <div className='login-button'>
